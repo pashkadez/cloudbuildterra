@@ -1,0 +1,13 @@
+# In this directory, run the following command to build this builder.
+# $ gcloud builds submit . --config=cloudbuild.yaml
+
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+  - build
+  - --tag
+  - gcr.io/${PROJECT_ID}/jenkins:jcasc
+  - .
+images:
+  - 'gcr.io/${PROJECT_ID}/jenkins:jcasc'
+tags: ['cloud-builders']

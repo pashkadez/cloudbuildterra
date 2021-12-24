@@ -1,0 +1,14 @@
+pipeline {
+	agent any
+	tools {
+  		terraform 'terraform'
+	}
+	stages {
+		stage("Terraform") {
+			steps {
+				sh 'terraform init'
+				sh 'terraform apply -auto-approve'
+			}
+		}
+	}
+}
