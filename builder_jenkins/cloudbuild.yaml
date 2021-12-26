@@ -7,7 +7,11 @@ steps:
   - build
   - --tag
   - gcr.io/${PROJECT_ID}/jenkins:jcasc
+  - --tag
+  - gcr.io/${PROJECT_ID}/jenkins:latest
   - .
 images:
   - 'gcr.io/${PROJECT_ID}/jenkins:jcasc'
+  - 'gcr.io/${PROJECT_ID}/jenkins:latest'
+
 tags: ['cloud-builders']

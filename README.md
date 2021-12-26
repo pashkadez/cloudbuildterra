@@ -1,4 +1,5 @@
-        gcloud auth application-default login
-        gcloud builds submit . --config=cloudbuild.yaml # in builder/
-        gcloud builds submit . --config=cloudbuild.yaml --substitutions=_BUCKET='pashatestbucket1763' --timeout=2000
-        gcloud builds submit . --config=clouddestroy.yaml --substitutions=_BUCKET='pashatestbucket1763' --timeout=2000
+helper.sh will use your gcloud cli's current login and project
+        git clone https://github.com/pashkadez/cloudbuildterra.git
+        sudo chown
+        cd cloudbuildterra
+        ./helper.sh

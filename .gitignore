@@ -1,2 +1,4 @@
 .terraform.lock.hcl
 .terraform
+secret.txt
+sa-private-key.json
