@@ -1,6 +1,5 @@
 variable "project-name" {
   type    = string
-  default = "springboard-project-12534"
 }
 
 variable "region" {
