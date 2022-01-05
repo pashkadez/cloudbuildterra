@@ -3,13 +3,22 @@ jenkins:
     local:
       allowsSignup: false
       users:
-       - id: ${JENKINS_ADMIN_ID}
-         password: ${JENKINS_ADMIN_PASSWORD}
+       - id: admin
+         password: admin
+       - id: "dev"
+         password: "dev"
+
   authorizationStrategy:
     globalMatrix:
       permissions:
         - "Overall/Administer:admin"
         - "Overall/Read:authenticated"
+        - "Job/Build:dev"
+        - "Job/Cancel:dev"
+        - "Job/Read:dev"
+        - "Job/Workspace:dev"
+        - "Run/Replay:dev"
+        - "Run/Update:dev"
   remotingSecurity:
     enabled: true
 security:

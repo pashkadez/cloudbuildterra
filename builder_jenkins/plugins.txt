@@ -20,3 +20,7 @@ timestamper:latest
 workflow-aggregator:latest
 ws-cleanup:latest
 terraform:latest
+github-api:latest
+github:latest
+google-kubernetes-engine:latest
+job-dsl:latest
