@@ -2,3 +2,4 @@
 .terraform
 secret.txt
 sa-private-key.json
+sa-private-base64-key.json

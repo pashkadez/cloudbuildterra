@@ -1,3 +1,23 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - googleRobotPrivateKey:
+          projectId: 'google-sa'
+          serviceAccountConfig:
+            json:
+              secretJsonKey: '/home/jenkins/sa-private-key.json'
+
+# credentials:
+#   system:
+#     domainCredentials:
+#     - credentials:
+#       - googleRobotPrivateKey:
+#           projectId: 'google-sa-base64'
+#           serviceAccountConfig:
+#             json:
+#               secretJsonKey: '/home/jenkins/sa-private-base64-key.json'
+
 jenkins:
   securityRealm:
     local:

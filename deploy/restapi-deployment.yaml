@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: restapi
+  name: restapi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: restapi
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: restapi
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: issuedb
+            - name: POSTGRES_HOST
+              value: postgres
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_PW
+              value: Init1234
+            - name: POSTGRES_USER
+              value: issueuser
+          image: restapi
+          name: restapi
+          ports:
+            - containerPort: 5000
+          resources: {}
+      restartPolicy: Always
+status: {}

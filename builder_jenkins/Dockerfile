@@ -1,4 +1,4 @@
-From jenkins/jenkins:alpine
+FROM jenkins/jenkins:alpine
 
 # Disabling the Setup Wizard
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
@@ -17,4 +17,12 @@ RUN wget https://releases.hashicorp.com/terraform/1.1.2/terraform_1.1.2_linux_am
     unzip terraform_1.1.2_linux_amd64.zip && rm terraform_1.1.2_linux_amd64.zip && \
     mv terraform /usr/bin/
 
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" &&\
+    chmod +x ./kubectl &&\
+    mv ./kubectl /usr/bin/kubectl    
+
 COPY sa-private-key.json /home/jenkins/sa-private-key.json
+RUN chmod 777 /home/jenkins/sa-private-key.json
+COPY sa-private-base64-key.json /home/jenkins/sa-private-base64-key.json
+COPY frontend /home/jenkins/frontend
+COPY rabbit /home/jenkins/rabbit

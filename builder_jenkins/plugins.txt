@@ -22,5 +22,10 @@ ws-cleanup:latest
 terraform:latest
 github-api:latest
 github:latest
-google-kubernetes-engine:latest
 job-dsl:latest
+docker:latest
+kubernetes:latest
+google-kubernetes-engine:latest
+google-cloudbuild:latest
+google-storage-plugin:latest
+google-source-plugin:latest
