@@ -6,17 +6,23 @@ credentials:
           projectId: 'google-sa'
           serviceAccountConfig:
             json:
-              secretJsonKey: '/home/jenkins/sa-private-key.json'
+              filename: 'sa-private-key.json'
+              secretJsonKey: 'base64 key'
 
 # credentials:
 #   system:
 #     domainCredentials:
-#     - credentials:
-#       - googleRobotPrivateKey:
-#           projectId: 'google-sa-base64'
-#           serviceAccountConfig:
-#             json:
-#               secretJsonKey: '/home/jenkins/sa-private-base64-key.json'
+#       - credentials:
+#           - string:
+#               id: "gcp"
+#               scope: GLOBAL
+#               secret: ${JENKINS_IAM_SA_KEY}
+#           - googleRobotPrivateKey:
+#               projectId: "gcp-sourcecode"
+#               serviceAccountConfig:
+#                 json:
+#                   filename: "gcp-sourcecode.json"
+#                   secretJsonKey: ${base64:${JENKINS_IAM_SA_KEY}}
 
 jenkins:
   securityRealm:
@@ -25,8 +31,6 @@ jenkins:
       users:
        - id: admin
          password: admin
-       - id: "dev"
-         password: "dev"
 
   authorizationStrategy:
     globalMatrix:

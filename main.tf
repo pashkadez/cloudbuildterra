@@ -23,3 +23,14 @@ resource "google_container_cluster" "terraform-builder-gcs-backend" {
     tags = ["node"]
   }
 }
+
+# resource "google_compute_disk" "jenkins" {
+#   name  = "jenkins-pd"
+#   # type  = "pd-ssd"
+#   zone  = var.zone
+#   size  = "10"
+#   # image = "debian-9-stretch-v20200805"
+#   # labels = {
+#   #   environment = "dev"
+#   # }
+# }

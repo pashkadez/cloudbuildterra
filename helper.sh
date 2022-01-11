@@ -197,15 +197,17 @@ gcloud projects add-iam-policy-binding \
   --role="roles/secretmanager.admin" \
   --user-output-enabled false
 
-gcloud secrets create db_pass --data-file=secret.txt
-
 base64 ${DIR}/builder_jenkins/sa-private-key.json > ${DIR}/builder_jenkins/sa-private-base64-key.json
 
-export PROJECT=$(gcloud info --format='value(config.project)')
-export CLUSTER="terraform-built"
-export ZONE="europe-central2-b"
-export SA=${SERVICE_ACCOUNT_ID}
-export SA_EMAIL=${SA_ID}
+gcloud secrets create db_pass --data-file=secret.txt
+gcloud secrets create sa_cred --data-file=sa-private-key.json
+gcloud secrets create sa_base64_cred --data-file=sa-private-base64-key.json
+
+# export PROJECT=$(gcloud info --format='value(config.project)')
+# export CLUSTER="terraform-built"
+# export ZONE="europe-central2-b"
+# export SA=${SERVICE_ACCOUNT_ID}
+# export SA_EMAIL=${SA_ID}
 
 (cd builder_terra && gcloud builds submit . --config=cloudbuild.yaml)
 (cd builder_jenkins && gcloud builds submit . --config=cloudbuild.yaml) 

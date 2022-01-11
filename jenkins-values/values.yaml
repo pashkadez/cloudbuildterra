@@ -1,0 +1,79 @@
+controller:
+
+  installPlugins:
+    - kubernetes:latest
+    - workflow-job:latest
+    - workflow-aggregator:latest
+    - credentials-binding:latest
+    - git:latest
+    - google-oauth-plugin:latest
+    - google-source-plugin:latest
+    - google-kubernetes-engine:latest
+    - google-storage-plugin:latest
+    - configuration-as-code:latest
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "1024Mi"
+    limits:
+      cpu: "1"
+      memory: "3500Mi"
+  javaOpts: "-Xms3500m -Xmx3500m"
+  JCasC:
+    enabled: true
+    defaultConfig: true
+    configScripts: {}
+    #  welcome-message: |
+    #    jenkins:
+    #      systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
+    # Ignored if securityRealm is defined in controller.JCasC.configScripts and
+    # ignored if controller.enableXmlConfig=true as controller.securityRealm takes precedence
+    securityRealm: |-
+      local:
+        allowsSignup: false
+        enableCaptcha: false
+        users:
+        - id: "admin"
+          name: "Jenkins Admin"
+          password: "admin"
+    # security-config: |-
+    #   credentials:
+    #     system:
+    #       domainCredentials:
+    #       - credentials:
+    #         - googleRobotPrivateKey:
+    #             projectId: 'google-sa'
+    #             serviceAccountConfig:
+    #               json:
+    #                 filename: 'sa-private-key.json'
+    #                 secretJsonKey: "вставити строкою бейз64 вміст файлу"
+
+    # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
+    authorizationStrategy: |-
+      loggedInUsersCanDoAnything:
+        allowAnonymousRead: false
+  # Optionally specify additional init-containers
+  customInitContainers: []
+  # - name: custom-init
+  #   image: "alpine:3.7"
+  #   imagePullPolicy: Always
+  #   command: [ "uname", "-a" ]
+
+  serviceType: LoadBalancer
+agent:
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+    limits:
+      cpu: "1"
+      memory: "2Gi"
+persistence:
+  size: 20Gi
+serviceAccount:
+  name: cd-jenkins
+
+
+
+
+
