@@ -11,6 +11,8 @@ controller:
     - google-kubernetes-engine:latest
     - google-storage-plugin:latest
     - configuration-as-code:latest
+    - google-container-registry-auth:latest
+    - docker-build-publish:latest
   resources:
     requests:
       cpu: "250m"
@@ -36,17 +38,7 @@ controller:
         - id: "admin"
           name: "Jenkins Admin"
           password: "admin"
-    # security-config: |-
-    #   credentials:
-    #     system:
-    #       domainCredentials:
-    #       - credentials:
-    #         - googleRobotPrivateKey:
-    #             projectId: 'google-sa'
-    #             serviceAccountConfig:
-    #               json:
-    #                 filename: 'sa-private-key.json'
-    #                 secretJsonKey: "вставити строкою бейз64 вміст файлу"
+
 
     # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
     authorizationStrategy: |-

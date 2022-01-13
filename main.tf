@@ -12,6 +12,7 @@ resource "google_container_cluster" "terraform-builder-gcs-backend" {
   node_config {
     machine_type = "${var.machine_type}"
     disk_size_gb  = "100"
+    image_type = "ubuntu"
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform"
     ]

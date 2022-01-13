@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: alpine
+  creationTimestamp: null
+  name: alpine
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: alpine
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: alpine
+      creationTimestamp: null
+    spec:
+      containers:
+        - image: alpine
+          name: alpine
+          securityContext:
+            privileged: true
+          command: ["/bin/sh"]
+          args: ["-c", "sleep 180000000"]
+          ports:
+            - containerPort: 5672
+          resources: {}
+      restartPolicy: Always
+status: {}
