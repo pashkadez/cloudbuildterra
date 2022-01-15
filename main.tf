@@ -32,6 +32,33 @@ resource "google_container_cluster" "terraform-builder-gcs-backend" {
 #   size  = "10"
 #   # image = "debian-9-stretch-v20200805"
 #   # labels = {
-#   #   environment = "dev"
+#   #   App = "jenkins"
 #   # }
+# }
+
+# data "helm_template" "jenkins" {
+#   name                = "jenkins"
+#   repository          = "https://charts.jenkins.io"
+#   chart               = "jenkins"
+#   version             = "3.10.3"
+#   create_namespace    = "true"
+# }
+
+# resource "local_file" "jenkins_manifests" {
+#   for_each = data.helm_template.jenkins.manifests
+
+#   filename = "./${each.key}"
+#   content  = each.value
+# }
+
+# output "jenkins_instance_manifest_bundle" {
+#   value = data.helm_template.jenkins.manifest_bundle
+# }
+
+# output "jenkins_instance_manifests" {
+#   value = data.helm_template.jenkins.manifests
+# }
+
+# output "jenkins_instance_notes" {
+#   value = data.helm_template.jenkins.notes
 # }

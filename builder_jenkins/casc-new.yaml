@@ -30,8 +30,8 @@ jenkins:
       serverUrl: "https://kubernetes.default"
       templates:
       - containers:
-        - args: "^${computer.jnlpmac} ^${computer.name}"
-          command: "sleep"
+        - args: ""
+          command: ""
           envVars:
           - envVar:
               key: "JENKINS_URL"
@@ -49,7 +49,6 @@ jenkins:
           resourceRequestCpu: "250m"
           resourceRequestMemory: "512Mi"
           workingDir: "/home/jenkins/agent"
-        id: "833847ae99373ac54b3593870a641bd367bac0e844658ef618e5371240074f9e"
         label: "jenkins-jenkins-agent"
         name: "default"
         nodeUsageMode: NORMAL

@@ -200,8 +200,8 @@ gcloud projects add-iam-policy-binding \
 base64 ${DIR}/builder_jenkins/sa-private-key.json > ${DIR}/builder_jenkins/sa-private-base64-key.json
 
 gcloud secrets create db_pass --data-file=secret.txt
-gcloud secrets create sa_cred --data-file=sa-private-key.json
-gcloud secrets create sa_base64_cred --data-file=sa-private-base64-key.json
+(cd builder_jenkins && gcloud secrets create sa_cred --data-file=sa-private-key.json)
+(cd builder_jenkins && gcloud secrets create sa_base64_cred --data-file=sa-private-base64-key.json)
 
 # export PROJECT=$(gcloud info --format='value(config.project)')
 # export CLUSTER="terraform-built"
@@ -210,5 +210,6 @@ gcloud secrets create sa_base64_cred --data-file=sa-private-base64-key.json
 # export SA_EMAIL=${SA_ID}
 
 (cd builder_terra && gcloud builds submit . --config=cloudbuild.yaml)
-(cd builder_jenkins && gcloud builds submit . --config=cloudbuild.yaml) 
+(cd builder_jenkins && gcloud builds submit . --config=cloudbuild.yaml)
+(cd jnlp_docker && gcloud builds submit . --config=cloudbuild.yaml --substitutions=_BUCKET=${TERRAFORM_BUCKET})
 (gcloud builds submit . --config=cloudbuild.yaml --substitutions=_BUCKET=${TERRAFORM_BUCKET} --timeout=2000)

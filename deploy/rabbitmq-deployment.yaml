@@ -30,13 +30,6 @@ spec:
             - name: RABBITMQ_DEFAULT_USER
               value: devops
           image: rabbitmq
-          livenessProbe:
-            exec:
-              command:
-                - rabbitmq-diagnostics -q ping
-            failureThreshold: 3
-            periodSeconds: 30
-            timeoutSeconds: 30
           name: rabbitmq
           ports:
             - containerPort: 5672

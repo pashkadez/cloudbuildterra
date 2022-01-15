@@ -4,3 +4,5 @@ secret.txt
 sa-private-key.json
 sa-private-base64-key.json
 jcasc-default-config.yaml
+temp
+docker
