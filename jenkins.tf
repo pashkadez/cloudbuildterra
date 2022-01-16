@@ -13,7 +13,9 @@ resource "helm_release" "jenkins" {
 
   values = [templatefile("jenkins-values/values.yaml",{
     project = var.project
-    bucket = var.BUCKET
+    bucket = var.bucket
+    sa_cred = base64encode(data.google_secret_manager_secret_version.sa_cred.secret_data)
+    db_pass = "${data.google_secret_manager_secret_version.db_pass.secret_data}"
   })]
 }
 

@@ -203,13 +203,15 @@ gcloud secrets create db_pass --data-file=secret.txt
 (cd builder_jenkins && gcloud secrets create sa_cred --data-file=sa-private-key.json)
 (cd builder_jenkins && gcloud secrets create sa_base64_cred --data-file=sa-private-base64-key.json)
 
-# export PROJECT=$(gcloud info --format='value(config.project)')
 # export CLUSTER="terraform-built"
 # export ZONE="europe-central2-b"
 # export SA=${SERVICE_ACCOUNT_ID}
 # export SA_EMAIL=${SA_ID}
 
+export TF_VAR_bucket=$TERRAFORM_BUCKET
+export TF_VAR_project=$PROJECT_ID
+
 (cd builder_terra && gcloud builds submit . --config=cloudbuild.yaml)
 (cd builder_jenkins && gcloud builds submit . --config=cloudbuild.yaml)
-(cd jnlp_docker && gcloud builds submit . --config=cloudbuild.yaml --substitutions=_BUCKET=${TERRAFORM_BUCKET})
+(cd jnlp_docker && gcloud builds submit . --config=cloudbuild.yaml)
 (gcloud builds submit . --config=cloudbuild.yaml --substitutions=_BUCKET=${TERRAFORM_BUCKET} --timeout=2000)

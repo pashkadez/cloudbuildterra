@@ -37,7 +37,7 @@ controller:
         users:
         - id: "admin"
           name: "Jenkins Admin"
-          password: "admin"
+          password: ${db_pass}
 
 
     # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
@@ -64,7 +64,7 @@ agent:
   maxRequestsPerHostStr: "32"
   namespace:
   image: "gcr.io/${project}/jnlp-docker"
-  tag: "working"
+  tag: "latest"
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
@@ -133,14 +133,15 @@ agent:
   #   readOnly: false
   # Pod-wide environment, these vars are visible to any container in the agent pod
   envVars: 
-  - name: bucket
+  - name: TF_VAR_bucket
     value: ${bucket}
   - name: TF_VAR_project
     value: ${project}
+  - name: GOOGLE_APPLICATION_CREDENTIALS
+    value: ${sa_cred}
   nodeSelector: {}
   # Key Value selectors. Ex:
   # jenkins-agent: v1
-
   # Executed command when side container gets started
   command: "/usr/local/bin/jenkins-agent"
   args: ""
