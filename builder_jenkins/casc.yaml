@@ -7,7 +7,11 @@ credentials:
           serviceAccountConfig:
             json:
               filename: 'sa-private-key.json'
+<<<<<<< HEAD
               secretJsonKey: 'base64 key string'
+=======
+              secretJsonKey: 'base 64 key'
+>>>>>>> a2e3180a498f68ad32fbb89c2110cf6205ca14d7
 
 
 jenkins:
