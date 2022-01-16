@@ -5,9 +5,16 @@ resource "helm_release" "jenkins" {
   version             = "3.10.3"
   create_namespace    = "true"
   namespace           = "jenkins"
-    values = [
-    file("${path.module}/jenkins-values/values.yaml"),
-  ]
+
+  # values = [templatefile("jenkins.yml", {
+  #   region                = var.region
+  #   storage               = "4Gi"
+  # })]
+
+  values = [templatefile("jenkins-values/values.yaml",{
+    project = var.project-name
+    bucket = var.BUCKET
+  })]
 }
 
 # resource "kubernetes_stateful_set" "jenkins" {

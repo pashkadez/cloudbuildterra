@@ -17,3 +17,6 @@ variable "machine_type" {
   default = "e2-standard-2"
 }
 
+variable "BUCKET" {
+  type    = string
+}

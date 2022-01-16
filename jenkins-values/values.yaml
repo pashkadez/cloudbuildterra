@@ -63,8 +63,8 @@ agent:
   kubernetesReadTimeout: 15
   maxRequestsPerHostStr: "32"
   namespace:
-  image: "gcr.io/pasha-testproject-12345/jnlp-docker"
-  tag: "latest"
+  image: "gcr.io/${project}/jnlp-docker"
+  tag: "working"
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
@@ -132,9 +132,11 @@ agent:
   #   claimName: mypvc
   #   readOnly: false
   # Pod-wide environment, these vars are visible to any container in the agent pod
-  envVars: []
-  # - name: PATH
-  #   value: /usr/local/bin
+  envVars: 
+  - name: bucket
+    value: ${bucket}
+  - name: TF_VAR_project-name
+    value: ${project}
   nodeSelector: {}
   # Key Value selectors. Ex:
   # jenkins-agent: v1
