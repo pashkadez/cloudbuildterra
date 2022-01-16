@@ -5,7 +5,7 @@ helper.sh will use your gcloud cli's current login and project, so the first thi
 You clone repo and start the script:
 
         git clone https://github.com/pashkadez/cloudbuildterra.git
-        sudo chown username /cloudbuildterra -R
+        sudo chown username cloudbuildterra -R
         cd cloudbuildterra
         ./helper.sh
 
