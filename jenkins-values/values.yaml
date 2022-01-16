@@ -135,7 +135,7 @@ agent:
   envVars: 
   - name: bucket
     value: ${bucket}
-  - name: TF_VAR_project-name
+  - name: TF_VAR_project
     value: ${project}
   nodeSelector: {}
   # Key Value selectors. Ex:

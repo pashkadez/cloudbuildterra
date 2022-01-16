@@ -12,7 +12,7 @@ resource "helm_release" "jenkins" {
   # })]
 
   values = [templatefile("jenkins-values/values.yaml",{
-    project = var.project-name
+    project = var.project
     bucket = var.BUCKET
   })]
 }
