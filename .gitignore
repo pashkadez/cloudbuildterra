@@ -6,3 +6,5 @@ sa-private-base64-key.json
 jcasc-default-config.yaml
 temp
 docker
+bucket.sh
+SLACK_WH.txt
