@@ -8,3 +8,4 @@ temp
 docker
 bucket.sh
 SLACK_WH.txt
+envvars.sh
