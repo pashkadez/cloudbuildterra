@@ -21,6 +21,3 @@ variable "bucket" {
   type    = string
 }
 
-variable "slack_wh" {
-  type    = string
-}

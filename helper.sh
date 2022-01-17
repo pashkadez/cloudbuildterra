@@ -229,4 +229,4 @@ export TF_VAR_project=$PROJECT_ID
 (cd jnlp_docker && gcloud builds submit . --config=cloudbuild.yaml)
 (gcloud builds submit . --config=cloudbuild.yaml --substitutions=_BUCKET=${TERRAFORM_BUCKET} --timeout=2000)
 
-terraform init
+terraform init -backend-config=bucket=$TF_VAR_bucket

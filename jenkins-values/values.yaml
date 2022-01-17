@@ -137,7 +137,7 @@ agent:
     value: ${bucket}
   - name: TF_VAR_project
     value: ${project}
-  - name: GOOGLE_APPLICATION_CREDENTIALS
+  - name: creds
     value: ${sa_cred}
   nodeSelector: {}
   # Key Value selectors. Ex:
