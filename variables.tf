@@ -20,3 +20,7 @@ variable "machine_type" {
 variable "bucket" {
   type    = string
 }
+
+variable "slack_wh" {
+  type    = string
+}

@@ -6,6 +6,16 @@ DIR=${PWD}
 # PROJECT_NUMBER=$(gcloud projects list --format="value(PROJECT_NUMBER)")
 CB_SA_ID=$(gcloud projects describe ${PROJECT_ID} --format="value(projectNumber)")@cloudbuild.gserviceaccount.com
 
+echo "Slack webhook URL(must be stated):"
+read SLACK_WH
+if [ -z "$SLACK_WH" ]
+then
+    echo "Missing value!"; exit $ERRCODE;
+fi
+cat << EOF > SLACK_WH.txt
+${SLACK_WH}
+EOF
+
 echo "secret(default if not stated):"
 read secret
 if [ -z ${secret} ]
@@ -30,6 +40,7 @@ if [ -z ${SERVICE_ACCOUNT_ID} ]
   then
     SERVICE_ACCOUNT_ID="serv-acc"
 fi
+
 
 SA_ID="${SERVICE_ACCOUNT_ID}@${PROJECT_ID}.iam.gserviceaccount.com"
 
@@ -199,14 +210,16 @@ gcloud projects add-iam-policy-binding \
 
 base64 ${DIR}/builder_jenkins/sa-private-key.json > ${DIR}/builder_jenkins/sa-private-base64-key.json
 
+gcloud secrets create slack_wh --data-file=SLACK_WH.txt
 gcloud secrets create db_pass --data-file=secret.txt
 (cd builder_jenkins && gcloud secrets create sa_cred --data-file=sa-private-key.json)
 (cd builder_jenkins && gcloud secrets create sa_base64_cred --data-file=sa-private-base64-key.json)
 
-# export CLUSTER="terraform-built"
-# export ZONE="europe-central2-b"
-# export SA=${SERVICE_ACCOUNT_ID}
-# export SA_EMAIL=${SA_ID}
+echo "Creating envvars.sh"
+cat << EOF > envvars.sh
+export TF_VAR_project=$PROJECT_ID
+export TF_VAR_bucket=$TERRAFORM_BUCKET
+EOF
 
 export TF_VAR_bucket=$TERRAFORM_BUCKET
 export TF_VAR_project=$PROJECT_ID
@@ -215,3 +228,5 @@ export TF_VAR_project=$PROJECT_ID
 (cd builder_jenkins && gcloud builds submit . --config=cloudbuild.yaml)
 (cd jnlp_docker && gcloud builds submit . --config=cloudbuild.yaml)
 (gcloud builds submit . --config=cloudbuild.yaml --substitutions=_BUCKET=${TERRAFORM_BUCKET} --timeout=2000)
+
+terraform init

@@ -1,5 +1,6 @@
 helper.sh will use your gcloud cli's current login and project, so the first thing to do is:
 
+        gcloud config set project your-project-name
         gcloud auth application-default login
 
 You clone repo and start the script:
