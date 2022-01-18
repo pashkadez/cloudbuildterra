@@ -151,6 +151,13 @@ gcloud projects add-iam-policy-binding \
   --role="roles/secretmanager.admin" \
   --user-output-enabled false
 
+echo "Adding role roles/cloudsql.admin..."
+gcloud projects add-iam-policy-binding \
+  "${PROJECT_ID}" \
+  --member="serviceAccount:${SA_ID}" \
+  --role="roles/cloudsql.admin" \
+  --user-output-enabled false
+
 echo "Adding cloudbuild roles..."
 
 echo "Adding role roles/storage.admin..."
@@ -206,6 +213,13 @@ gcloud projects add-iam-policy-binding \
   "${PROJECT_ID}" \
   --member="serviceAccount:${CB_SA_ID}" \
   --role="roles/secretmanager.admin" \
+  --user-output-enabled false
+
+echo "Adding role roles/cloudsql.admin..."
+gcloud projects add-iam-policy-binding \
+  "${PROJECT_ID}" \
+  --member="serviceAccount:${CB_SA_ID}" \
+  --role="roles/cloudsql.admin" \
   --user-output-enabled false
 
 base64 ${DIR}/builder_jenkins/sa-private-key.json > ${DIR}/builder_jenkins/sa-private-base64-key.json
