@@ -10,6 +10,7 @@ resource "kubernetes_secret" "kubeconfig" {
     }
     depends_on = [
         local.config,
+        helm_release.jenkins
     ]
 }
 
