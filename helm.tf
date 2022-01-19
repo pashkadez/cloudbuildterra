@@ -26,3 +26,6 @@ provider "kubernetes" {
  
 data "google_client_config" "default" {}
 
+output "jenkins link" {
+  value = "https://${google_container_cluster.terraform-builder-gcs-backend.endpoint}:8080"
+}
