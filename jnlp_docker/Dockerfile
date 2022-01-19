@@ -6,8 +6,6 @@ USER root
 # with newer versions of curl. The solution is to upgrade libcurl.
 RUN apk update && apk add -u libcurl curl gettext libintl 
 
-# && mv /usr/bin/envsubst /usr/local/sbin/envsubst
-
 # Install Docker client
 ARG DOCKER_VERSION=18.03.0-ce
 ARG DOCKER_COMPOSE_VERSION=1.21.0
@@ -25,19 +23,6 @@ RUN unzip terraform_1.1.3_linux_amd64.zip && rm terraform_1.1.3_linux_amd64.zip
 RUN mv terraform /usr/bin/terraform
 # add to shell script before "docker push"            docker-credential-gcr configure-docker --registries="gcr.io" && docker-credential-gcr config --token-source="env"
 
-
-# # Install gcloud SDK
-# RUN curl https://dl.google.com/dl/cloudsdk/release/google-cloud-sdk.tar.gz > /tmp/google-cloud-sdk.tar.gz
-# RUN apk add -u python3 py3-pip
-# RUN mkdir -p /usr/local/gcloud \
-#   && tar -C /usr/local/gcloud -xvf /tmp/google-cloud-sdk.tar.gz 
-# RUN chown jenkins /usr/local/gcloud -R
-# USER jenkins
-# RUN /usr/local/gcloud/google-cloud-sdk/install.sh
-# USER root
-# ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
-
-
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" &&\
     chmod +x ./kubectl &&\
     mv ./kubectl /usr/bin/kubectl    
@@ -48,6 +33,3 @@ RUN rc-update add docker boot
 RUN touch /debug-flag \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/*
- 
-# COPY sa-private-key.json /var/tmp/sa-private-key.json
-# RUN chmod 777 /var/tmp/sa-private-key.json

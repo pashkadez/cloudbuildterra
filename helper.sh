@@ -225,7 +225,9 @@ gcloud projects add-iam-policy-binding \
 gcloud secrets create slack_wh --data-file=SLACK_WH.txt
 gcloud secrets create db_pass --data-file=secret.txt
 gcloud secrets create sa_cred --data-file=sa-private-key.json
-
+rm sa-private-key.json
+rm secret.txt
+rm SLACK_WH.txt
 
 echo "Creating envvars.sh"
 cat << EOF > envvars.sh
