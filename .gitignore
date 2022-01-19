@@ -9,3 +9,6 @@ docker
 bucket.sh
 SLACK_WH.txt
 envvars.sh
+test.sh
+config
+builder_jenkins
