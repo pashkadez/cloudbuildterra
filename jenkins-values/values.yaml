@@ -137,8 +137,6 @@ agent:
     value: ${bucket}
   - name: TF_VAR_project
     value: ${project}
-  - name: db_pass
-    value: ${db_pass} 
   - name: GOOGLE_APPLICATION_CREDENTIALS
     value: /home/jenkins/.kube/sa-private-key.json
   - name: clust_name
@@ -147,6 +145,14 @@ agent:
     value: ${zone}
   - name: KUBECONFIG
     value: /home/jenkins/.kube/config
+  - name: db_host
+    value: ${db_host}
+  - name: db_user
+    value: ${db_user}
+  - name: db_pass
+    value: ${db_pass} 
+  - name: slack_wh
+    value: ${slack_wh}
   nodeSelector: {}
   # Key Value selectors. Ex:
   # jenkins-agent: v1
