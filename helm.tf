@@ -23,5 +23,6 @@ provider "kubernetes" {
   host                   = "https://${google_container_cluster.terraform-builder-gcs-backend.endpoint}"
   token                  = data.google_client_config.default.access_token
 }
-
+ 
 data "google_client_config" "default" {}
+

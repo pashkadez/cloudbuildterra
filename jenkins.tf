@@ -6,18 +6,15 @@ resource "helm_release" "jenkins" {
   create_namespace    = "true"
   namespace           = "jenkins"
 
-  # values = [templatefile("jenkins.yml", {
-  #   region                = var.region
-  #   storage               = "4Gi"
-  # })]
-
   values = [templatefile("jenkins-values/values.yaml",{
     project = var.project
     bucket = var.bucket
-    sa_cred = base64encode(data.google_secret_manager_secret_version.sa_cred.secret_data)
     db_pass = "${data.google_secret_manager_secret_version.db_pass.secret_data}"
+    zone = var.zone
+    clust_name = google_container_cluster.terraform-builder-gcs-backend.name
   })]
-}
+} 
+
 
 # resource "kubernetes_stateful_set" "jenkins" {
 #   metadata {

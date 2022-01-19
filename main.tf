@@ -4,7 +4,7 @@ provider "google" {
 }
 
 
-resource "google_container_cluster" "terraform-builder-gcs-backend" {
+resource "google_container_cluster" "terraform-builder-gcs-backend" { 
   name               = "terraform-built"
   location           = "${var.zone}"
   initial_node_count = "1"
@@ -24,6 +24,8 @@ resource "google_container_cluster" "terraform-builder-gcs-backend" {
     tags = ["node"]
   }
 }
+
+
 
 # resource "google_compute_disk" "jenkins" {
 #   name  = "jenkins-pd"

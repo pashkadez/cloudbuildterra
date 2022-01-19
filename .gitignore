@@ -2,13 +2,6 @@
 .terraform
 secret.txt
 sa-private-key.json
-sa-private-base64-key.json
-jcasc-default-config.yaml
-temp
-docker
-bucket.sh
-SLACK_WH.txt
 envvars.sh
 test.sh
-config
-builder_jenkins
+

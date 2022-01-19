@@ -3,7 +3,6 @@ set -e
 PROJECT_ID=$(gcloud config get-value project)
 NOTRANDOM=${RANDOM}
 DIR=${PWD}
-# PROJECT_NUMBER=$(gcloud projects list --format="value(PROJECT_NUMBER)")
 CB_SA_ID=$(gcloud projects describe ${PROJECT_ID} --format="value(projectNumber)")@cloudbuild.gserviceaccount.com
 
 echo "Slack webhook URL(must be stated):"
@@ -93,14 +92,14 @@ gcloud iam service-accounts create ${SERVICE_ACCOUNT_ID} \
     --display-name="SAcc" \
     --project=${PROJECT_ID} 
 
-gcloud iam service-accounts keys create ${DIR}/builder_jenkins/sa-private-key.json \
+gcloud iam service-accounts keys create ${DIR}/sa-private-key.json \
     --iam-account=${SA_ID}
 
 echo "Adding role roles/storage.admin..."
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
     --member=serviceAccount:${SA_ID} \
     --role="roles/storage.admin"
-    # --user-output-enabled false
+
 
 echo "Adding role roles/compute.networkAdmin..."
 gcloud projects add-iam-policy-binding \
@@ -164,7 +163,7 @@ echo "Adding role roles/storage.admin..."
 gcloud projects add-iam-policy-binding ${PROJECT_ID} \
     --member=serviceAccount:${CB_SA_ID} \
     --role="roles/storage.admin"
-    # --user-output-enabled false
+
 
 echo "Adding role roles/compute.networkAdmin..."
 gcloud projects add-iam-policy-binding \
@@ -222,12 +221,11 @@ gcloud projects add-iam-policy-binding \
   --role="roles/cloudsql.admin" \
   --user-output-enabled false
 
-base64 ${DIR}/builder_jenkins/sa-private-key.json > ${DIR}/builder_jenkins/sa-private-base64-key.json
 
 gcloud secrets create slack_wh --data-file=SLACK_WH.txt
 gcloud secrets create db_pass --data-file=secret.txt
-(cd builder_jenkins && gcloud secrets create sa_cred --data-file=sa-private-key.json)
-(cd builder_jenkins && gcloud secrets create sa_base64_cred --data-file=sa-private-base64-key.json)
+gcloud secrets create sa_cred --data-file=sa-private-key.json
+
 
 echo "Creating envvars.sh"
 cat << EOF > envvars.sh
@@ -239,7 +237,6 @@ export TF_VAR_bucket=$TERRAFORM_BUCKET
 export TF_VAR_project=$PROJECT_ID
 
 (cd builder_terra && gcloud builds submit . --config=cloudbuild.yaml)
-(cd builder_jenkins && gcloud builds submit . --config=cloudbuild.yaml)
 (cd jnlp_docker && gcloud builds submit . --config=cloudbuild.yaml)
 (gcloud builds submit . --config=cloudbuild.yaml --substitutions=_BUCKET=${TERRAFORM_BUCKET} --timeout=2000)
 

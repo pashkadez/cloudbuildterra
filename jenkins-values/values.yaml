@@ -76,7 +76,7 @@ agent:
   runAsUser:
   runAsGroup:
   # You may want to change this to true while testing a new image
-  alwaysPullImage: false
+  alwaysPullImage: true
   # Controls how agent pods are retained after the Jenkins build completes
   # Possible values: Always, Never, OnFailure
   podRetention: "Never"
@@ -90,8 +90,8 @@ agent:
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes
   volumes:
   # - type: ConfigMap
-  #   configMapName: myconfigmap
-  #   mountPath: /var/myapp/myconfigmap
+  #   configMapName: kubeconfig
+  #   mountPath: /home/jenkins/.kube
   # - type: EmptyDir
   #   mountPath: /var/myapp/myemptydir
   #   memory: false
@@ -107,10 +107,10 @@ agent:
   #   claimName: mypvc
   #   mountPath: /var/myapp/mypvc
   #   readOnly: false
-  # - type: Secret
-  #   defaultMode: "600"
-  #   mountPath: /var/myapp/mysecret
-  #   secretName: mysecret
+  - type: Secret
+    defaultMode: 0744
+    mountPath: /home/jenkins/.kube
+    secretName: kubeconfig
   # Pod-wide environment, these vars are visible to any container in the agent pod
 
   # You can define the workspaceVolume that you want to mount for this container
@@ -137,8 +137,16 @@ agent:
     value: ${bucket}
   - name: TF_VAR_project
     value: ${project}
-  - name: creds
-    value: ${sa_cred}
+  - name: db_pass
+    value: ${db_pass} 
+  - name: GOOGLE_APPLICATION_CREDENTIALS
+    value: /home/jenkins/.kube/sa-private-key.json
+  - name: clust_name
+    value: ${clust_name}
+  - name: clust_zone
+    value: ${zone}
+  - name: KUBECONFIG
+    value: /home/jenkins/.kube/config
   nodeSelector: {}
   # Key Value selectors. Ex:
   # jenkins-agent: v1
