@@ -10,7 +10,7 @@
 #         local.credentials,
 #         helm_release.jenkins
 #     ]
-# }
+# } 
 
 # locals {
 #     credentials = <<-EOF
