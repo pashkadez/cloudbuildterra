@@ -31,6 +31,4 @@
 #   </domainCredentialsMap>
 # </com.cloudbees.plugins.credentials.SystemCredentialsProvider>jenkins@jenkins-0:~$
 # EOF
-
 # } 
-
