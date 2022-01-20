@@ -29,3 +29,4 @@ resource "kubernetes_namespace" "app" {
     name = "app"
   }
 }
+
