@@ -8,7 +8,7 @@
 #     }
 #     depends_on = [
 #         local.credentials,
-#         helm_release.jenkins
+#         helm_release.jenkins 
 #     ]
 # } 
 
