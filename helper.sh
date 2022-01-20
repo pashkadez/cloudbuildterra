@@ -237,9 +237,16 @@ EOF
 
 export TF_VAR_bucket=$TERRAFORM_BUCKET
 export TF_VAR_project=$PROJECT_ID
+export JENKINS_USER_ID=admin
+export JENKINS_API_TOKEN=abc1234ffe4a
 
 (cd builder_terra && gcloud builds submit . --config=cloudbuild.yaml)
 (cd jnlp_docker && gcloud builds submit . --config=cloudbuild.yaml)
 (gcloud builds submit . --config=cloudbuild.yaml --substitutions=_BUCKET=${TERRAFORM_BUCKET} --timeout=2000)
 
 terraform init -backend-config=bucket=$TF_VAR_bucket
+
+gcloud container clusters get-credentials terraform-built --zone europe-central2-b --project $PROJECT_ID
+kubectl cp jobs jenkins/jenkins-0:/var/jenkins_home
+
+echo "java -jar jenkins-cli.jar -s http://jenkins_ip:8080 -auth admin:securepassword command reload-configuration"
