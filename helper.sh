@@ -246,7 +246,7 @@ export JENKINS_API_TOKEN=abc1234ffe4a
 
 terraform init -backend-config=bucket=$TF_VAR_bucket
 
-gcloud container clusters get-credentials terraform-built --zone europe-central2-b --project $PROJECT_ID
+gcloud container clusters get-credentials terraform-built --zone europe-central2-b --project $TF_VAR_project
 kubectl cp jobs jenkins/jenkins-0:/var/jenkins_home
 
-echo "java -jar jenkins-cli.jar -s http://jenkins_ip:8080 -auth admin:securepassword command reload-configuration"
+echo "java -jar jenkins-cli.jar -s http://jenkins_ip:8080 -auth admin:${secret} reload-configuration"
