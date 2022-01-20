@@ -11,8 +11,7 @@ controller:
     - google-kubernetes-engine:latest
     - google-storage-plugin:latest
     - configuration-as-code:latest
-    - google-container-registry-auth:latest
-    - docker-build-publish:latest
+    - github:latest
   resources:
     requests:
       cpu: "250m"
@@ -39,6 +38,9 @@ controller:
           name: "Jenkins Admin"
           password: ${db_pass}
 
+    # clouds: |
+    #   - kubernetes:
+    #       credentialsId: ${project}
 
     # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
     authorizationStrategy: |-
@@ -90,8 +92,9 @@ agent:
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes
   volumes:
   # - type: ConfigMap
-  #   configMapName: kubeconfig
-  #   mountPath: /home/jenkins/.kube
+  #   configMapName: credentials
+  #   mountPath: /var/jenkins_home/casc_configs/
+  #   subPath: credentials.xml
   # - type: EmptyDir
   #   mountPath: /var/myapp/myemptydir
   #   memory: false

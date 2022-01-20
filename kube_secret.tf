@@ -15,8 +15,8 @@ resource "kubernetes_secret" "kubeconfig" {
 }
 
 locals {
-    sensitive = true
-    config = <<-EOT
+  sensitive = true
+  config = <<-EOT
 apiVersion: v1
 kind: Config
 clusters:

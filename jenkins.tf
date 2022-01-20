@@ -16,6 +16,11 @@ resource "helm_release" "jenkins" {
     db_pass = data.google_secret_manager_secret_version.db_pass.secret_data
     slack_wh = data.google_secret_manager_secret_version.slack_wh.secret_data
   })]
+
+  set {
+    name  = "clouds.kubernetes.credentialsId"
+    value = var.project
+}
 } 
 
 resource "kubernetes_namespace" "app" {
@@ -24,4 +29,3 @@ resource "kubernetes_namespace" "app" {
     name = "app"
   }
 }
-
